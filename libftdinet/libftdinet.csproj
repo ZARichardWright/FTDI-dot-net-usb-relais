@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C1B35D58-C15A-4D8C-BDEB-6D93C9C0E8A4}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>FTDI_NET_Wrapper</AssemblyName>
+    <AssemblyName>libftdinet</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,11 +33,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FTDI_NET.cs" />
+    <Compile Include="libftdinet.cs" />
     <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="FTDI_NET_Wrapper.dll.config" />
+    <None Include="libftdinet.dll.config" />
   </ItemGroup>
 </Project>

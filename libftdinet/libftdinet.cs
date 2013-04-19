@@ -10,7 +10,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Collections;
 
-namespace FTDI_NET_Wrapper
+namespace libftdinet
 {	
 	// FTDI chip type
 	public enum ChipType 
