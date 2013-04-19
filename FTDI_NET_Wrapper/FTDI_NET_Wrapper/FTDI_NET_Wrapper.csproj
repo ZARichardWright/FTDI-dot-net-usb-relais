@@ -38,6 +38,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="FTDI_NET_Wrapper.config" />
+    <None Include="FTDI_NET_Wrapper.dll.config" />
   </ItemGroup>
 </Project>
