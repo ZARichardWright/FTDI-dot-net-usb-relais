@@ -1,0 +1,26 @@
+FAQ
+
+Q: I'm getting permission denied errors/exceptions when trying to use my device
+A: You can either run as root (or via sudo) which is not recommended, or add a udev rule to properly set permissions.
+ It is recommended that you go through the udev rules approach, running as root is never a good idea.
+
+Steps
+-----
+- NOTE: This is Ubuntu specific but is pretty close to what you need for all systems using udev
+
+Create /etc/udev/rules.d/usb-ftdi.rules with the contents:
+
+#FT2232 Adapter
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", GROUP:="libftdi", MODE:="0660"
+
+Note that the product and vendor should match what is reported by 'lsusb' for your particular ftdi device. This rule can
+be adjusted to allow a series or a range of product values if you have multiple devices with different product values.
+
+Note that the group give, 'libftdi' was added to the system via 'sudo addgroup libftdi' and the user that intends to
+use the ftdi device added to this group via 'sudo adduser <username> libftdi'. You can use whichever group you would like
+in place of 'libftdi' if your user accounts all belong to that particular group.
+
+There may be a simpler way to reinitialize things but rebooting after these steps will cause the udev rules to
+be re-examined and force the user to log-in again which will refresh their group settings.
+
+
