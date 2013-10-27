@@ -212,8 +212,8 @@ namespace libftdinet
 	public struct ftdi_eeprom 
 	{
 		// init and build eeprom from ftdi_eeprom structure
-		[DllImport("libftdi")] internal static extern int ftdi_eeprom_build(ref ftdi_eeprom eeprom, ref byte[] output);
-		[DllImport("libftdi")] internal static extern void ftdi_eeprom_initdefaults(out ftdi_eeprom eeprom);
+		[DllImport("libftdi1")] internal static extern int ftdi_eeprom_build(ref ftdi_eeprom eeprom, ref byte[] output);
+		[DllImport("libftdi1")] internal static extern void ftdi_eeprom_initdefaults(out ftdi_eeprom eeprom);
 
 		int vendor_id;
 		int product_id;
@@ -243,10 +243,10 @@ namespace libftdinet
 	{
 		private ftdi_context ftdi = new ftdi_context();
 
-		[DllImport("libftdi")] internal static extern int ftdi_init(ref ftdi_context ftdi);
-		[DllImport("libftdi")] internal static extern void ftdi_deinit(ref ftdi_context ftdi);
-		[DllImport("libftdi")] internal static extern int ftdi_usb_open(ref ftdi_context ftdi, int vendor, int product);
-		[DllImport("libftdi")] internal static extern int ftdi_usb_open_desc(ref ftdi_context ftdi, int vendor, int product, string description, string serial);
+        [DllImport("libftdi1")] internal static extern int ftdi_init(ref ftdi_context ftdi);
+		[DllImport("libftdi1")] internal static extern void ftdi_deinit(ref ftdi_context ftdi);
+		[DllImport("libftdi1")] internal static extern int ftdi_usb_open(ref ftdi_context ftdi, int vendor, int product);
+		[DllImport("libftdi1")] internal static extern int ftdi_usb_open_desc(ref ftdi_context ftdi, int vendor, int product, string description, string serial);
 
 		private FTDIContext() 
 		{
@@ -264,7 +264,7 @@ namespace libftdinet
 			CheckRet(ret);
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_usb_open_dev(ref ftdi_context ftdi, IntPtr dev);
+		[DllImport("libftdi1")] internal static extern int ftdi_usb_open_dev(ref ftdi_context ftdi, IntPtr dev);
 		public FTDIContext(IntPtr dev) : this() 
 		{
 			CheckRet(ftdi_usb_open_dev(ref ftdi, dev));
@@ -276,7 +276,7 @@ namespace libftdinet
 			ftdi_deinit(ref ftdi);
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_set_baudrate(ref ftdi_context ftdi, int baudrate);
+		[DllImport("libftdi1")] internal static extern int ftdi_set_baudrate(ref ftdi_context ftdi, int baudrate);
 		public int Baudrate 
 		{ 
 			set 
@@ -296,29 +296,29 @@ namespace libftdinet
 			throw new Exception(Marshal.PtrToStringAnsi(str));
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_usb_reset(ref ftdi_context ftdi);
+		[DllImport("libftdi1")] internal static extern int ftdi_usb_reset(ref ftdi_context ftdi);
 		
 		public void Reset() 
 		{
 			CheckRet(ftdi_usb_reset(ref ftdi));
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_usb_close(ref ftdi_context ftdi);
+		[DllImport("libftdi1")] internal static extern int ftdi_usb_close(ref ftdi_context ftdi);
 
 		public void Close() 
 		{
 			CheckRet(ftdi_usb_close(ref ftdi));
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_usb_purge_buffers(ref ftdi_context ftdi);
+		[DllImport("libftdi1")] internal static extern int ftdi_usb_purge_buffers(ref ftdi_context ftdi);
 
 		public void PurgeBuffers() 
 		{
 			CheckRet(ftdi_usb_purge_buffers(ref ftdi));
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_read_data_set_chunksize(ref ftdi_context ftdi, uint chunksize);
-		[DllImport("libftdi")] internal static extern int ftdi_read_data_get_chunksize(ref ftdi_context ftdi, out uint chunksize);
+		[DllImport("libftdi1")] internal static extern int ftdi_read_data_set_chunksize(ref ftdi_context ftdi, uint chunksize);
+		[DllImport("libftdi1")] internal static extern int ftdi_read_data_get_chunksize(ref ftdi_context ftdi, out uint chunksize);
 
 		public uint ReadChunkSize 
 		{
@@ -334,8 +334,8 @@ namespace libftdinet
 			}
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_write_data_set_chunksize(ref ftdi_context ftdi, uint chunksize);
-		[DllImport("libftdi")] internal static extern int ftdi_write_data_get_chunksize(ref ftdi_context ftdi, out uint chunksize);
+		[DllImport("libftdi1")] internal static extern int ftdi_write_data_set_chunksize(ref ftdi_context ftdi, uint chunksize);
+		[DllImport("libftdi1")] internal static extern int ftdi_write_data_get_chunksize(ref ftdi_context ftdi, out uint chunksize);
 		public uint WriteChunkSize 
 		{
 			set 
@@ -350,8 +350,8 @@ namespace libftdinet
 			}
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_set_latency_timer(ref ftdi_context ftdi, byte latency);
-		[DllImport("libftdi")] internal static extern int ftdi_get_latency_timer(ref ftdi_context ftdi, out byte latency);
+		[DllImport("libftdi1")] internal static extern int ftdi_set_latency_timer(ref ftdi_context ftdi, byte latency);
+		[DllImport("libftdi1")] internal static extern int ftdi_get_latency_timer(ref ftdi_context ftdi, out byte latency);
 		public byte LatencyTimer 
 		{
 			set 
@@ -366,13 +366,13 @@ namespace libftdinet
 			}
 		}
 
-		[DllImport("libftdi")] internal static extern IntPtr ftdi_get_error_string(ref ftdi_context ftdi);
+		[DllImport("libftdi1")] internal static extern IntPtr ftdi_get_error_string(ref ftdi_context ftdi);
 
 		// "eeprom" needs to be valid 128 byte eeprom (generated by the eeprom generator)
 		// the checksum of the eeprom is valided
-		[DllImport("libftdi")] internal static extern int ftdi_read_eeprom(ref ftdi_context ftdi, ref byte[] eeprom);
-		[DllImport("libftdi")] internal static extern int ftdi_write_eeprom(ref ftdi_context ftdi, ref byte[] eeprom);
-		[DllImport("libftdi")] internal static extern int ftdi_erase_eeprom(ref ftdi_context ftdi);
+		[DllImport("libftdi1")] internal static extern int ftdi_read_eeprom(ref ftdi_context ftdi, ref byte[] eeprom);
+		[DllImport("libftdi1")] internal static extern int ftdi_write_eeprom(ref ftdi_context ftdi, ref byte[] eeprom);
+		[DllImport("libftdi1")] internal static extern int ftdi_erase_eeprom(ref ftdi_context ftdi);
 
 		public void WriteEEPROM(ftdi_eeprom eeprom)
 		{
@@ -394,7 +394,7 @@ namespace libftdinet
 			return null;
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_read_data(ref ftdi_context ftdi, byte[] buf, int size);
+		[DllImport("libftdi1")] internal static extern int ftdi_read_data(ref ftdi_context ftdi, byte[] buf, int size);
 		public int ReadData(byte[] buf, int size)
 		{
 			int ret = ftdi_read_data(ref ftdi, buf, size); 
@@ -402,7 +402,7 @@ namespace libftdinet
 			return ret;
 		}
 		
-		[DllImport("libftdi")] internal static extern int ftdi_write_data(ref ftdi_context ftdi, byte[] buf, int size);
+		[DllImport("libftdi1")] internal static extern int ftdi_write_data(ref ftdi_context ftdi, byte[] buf, int size);
 		public int WriteData(byte[] buf, int size)
 		{
 			int ret = ftdi_write_data(ref ftdi, buf, size); 
@@ -410,7 +410,7 @@ namespace libftdinet
 			return ret;
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_set_interface(ref ftdi_context ftdi, Interface iface);
+		[DllImport("libftdi1")] internal static extern int ftdi_set_interface(ref ftdi_context ftdi, Interface iface);
 		public Interface Interface 
 		{ 
 			set 
@@ -419,7 +419,7 @@ namespace libftdinet
 			}
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_read_pins(ref ftdi_context ftdi, out byte pins);
+		[DllImport("libftdi1")] internal static extern int ftdi_read_pins(ref ftdi_context ftdi, out byte pins);
 		public byte GetPins() 
 		{
 			byte pins;
@@ -427,8 +427,8 @@ namespace libftdinet
 			return pins;
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_enable_bitbang(ref ftdi_context ftdi, byte bitmask);
-		[DllImport("libftdi")] internal static extern int ftdi_disable_bitbang(ref ftdi_context ftdi);
+		[DllImport("libftdi1")] internal static extern int ftdi_enable_bitbang(ref ftdi_context ftdi, byte bitmask);
+		[DllImport("libftdi1")] internal static extern int ftdi_disable_bitbang(ref ftdi_context ftdi);
 
 		public void EnableBitBang(byte bitmask) 
 		{
@@ -440,13 +440,13 @@ namespace libftdinet
 			CheckRet(ftdi_disable_bitbang(ref ftdi));
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_set_bitmode(ref ftdi_context ftdi, byte bitmask, byte mode);
+		[DllImport("libftdi1")] internal static extern int ftdi_set_bitmode(ref ftdi_context ftdi, byte bitmask, byte mode);
 		public void SetBitMode(byte bitmask, byte mode) 
 		{
 			CheckRet(ftdi_set_bitmode(ref ftdi, bitmask, mode));
 		}
 
-		[DllImport("libftdi")] internal static extern int ftdi_set_line_property(ref ftdi_context ftdi, BitsType bits, StopBitsType sbit, ParityType parity);
+		[DllImport("libftdi1")] internal static extern int ftdi_set_line_property(ref ftdi_context ftdi, BitsType bits, StopBitsType sbit, ParityType parity);
 		public void SetLineProperty(BitsType bits, StopBitsType sbit, ParityType parity) 
 		{
 			CheckRet(ftdi_set_line_property(ref ftdi, bits, sbit, parity));
@@ -458,8 +458,8 @@ namespace libftdinet
 			internal IntPtr dev;
 		};
 
-		[DllImport("libftdi")] internal unsafe static extern int ftdi_usb_find_all(ref ftdi_context ftdi, ftdi_device_list **devlist, int vendor, int product);
-		[DllImport("libftdi")] internal unsafe static extern void ftdi_list_free(ftdi_device_list **devlist);
+		[DllImport("libftdi1")] internal unsafe static extern int ftdi_usb_find_all(ref ftdi_context ftdi, ftdi_device_list **devlist, int vendor, int product);
+		[DllImport("libftdi1")] internal unsafe static extern void ftdi_list_free(ftdi_device_list **devlist);
 
 		public static unsafe IntPtr[] GetDeviceList(int vendor, int product) 
 		{
