@@ -50,16 +50,8 @@ Installing C# .NET Wrapper
 
 We want to control the relais card using C#. We need a C# wrapper for native DLL  /usr/lib/libftdi1.so.2
 
-git clone git://github.com/chmorgan/libftdinet
+git clone git://github.com/df3xc/libftdinet
 
-In file libftdinet.dll.config update shared livrary:
-
-<?xml version="1.0" encoding="utf-8" ?>
-<configuration>
-	<dllmap dll="libftdi" target="libftdi1.so.2"/>
-</configuration>
-
-Replace all [DllImport("libftdi")] by [DllImport("libftdi1")] 
 
 
 Create a new C# Solution
