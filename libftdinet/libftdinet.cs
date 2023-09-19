@@ -33,10 +33,12 @@ namespace libftdinet
 	
 	// Number of bits for ftdi_set_line_property()
 	public enum BitsType { BITS_7=7, BITS_8=8 };
-	
-	// Break type for ftdi_set_line_property2()
-	// + coolnumber9, 03/01/10
-	public enum BreakType
+
+
+	public enum FlowType { SIO_DISABLE_FLOW_CTRL=0x00, SIO_RTS_CTS_HS =(0x1 << 8),SIO_DTR_DSR_HS= (0x2 << 8),SIO_XON_XOFF_HS= (0x4 << 8)}
+    // Break type for ftdi_set_line_property2()
+    // + coolnumber9, 03/01/10
+    public enum BreakType
 	{
 		BREAK_OFF=0,
 		BREAK_ON=1
@@ -394,7 +396,24 @@ namespace libftdinet
 			return null;
 		}
 
-		[DllImport("libftdi1")] internal static extern int ftdi_read_data(ref ftdi_context ftdi, byte[] buf, int size);
+        [DllImport("libftdi1")] internal static extern int ftdi_poll_modem_status(ref ftdi_context ftdi,out UInt16 status);
+        public UInt16 PollStatus()
+        {
+			UInt16 status;
+            int ret = ftdi_poll_modem_status(ref ftdi, out status);
+            CheckRet(ret);
+            return (UInt16)status;
+        }
+        [DllImport("libftdi1")] internal static extern int ftdi_setflowctrl(ref ftdi_context ftdi, int flowctrl);
+        public void SetFlowCTL(FlowType Flow)
+        {
+            UInt16 status;
+            int ret = ftdi_setflowctrl(ref ftdi, (int)Flow);
+            CheckRet(ret);            
+        }
+        
+
+        [DllImport("libftdi1")] internal static extern int ftdi_read_data(ref ftdi_context ftdi, byte[] buf, int size);
 		public int ReadData(byte[] buf, int size)
 		{
 			int ret = ftdi_read_data(ref ftdi, buf, size); 
