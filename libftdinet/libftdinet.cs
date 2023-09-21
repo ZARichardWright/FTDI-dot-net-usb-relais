@@ -9,6 +9,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Collections;
+using System.Reflection.Emit;
 
 namespace libftdinet
 {	
@@ -405,11 +406,23 @@ namespace libftdinet
             return (UInt16)status;
         }
         [DllImport("libftdi1")] internal static extern int ftdi_setflowctrl(ref ftdi_context ftdi, int flowctrl);
+        [DllImport("libftdi1")] internal static extern int ftdi_set_event_char(ref ftdi_context ftdi, byte eventchar, byte enable);
+        [DllImport("libftdi1")] internal static extern int ftdi_setrts(ref ftdi_context ftdi, int state);
+
+        public bool RTS
+		{
+			set
+			{
+                int ret = ftdi_setrts(ref ftdi, value?1:0);
+                CheckRet(ret);
+            }
+		}
         public void SetFlowCTL(FlowType Flow)
-        {
+        {            
             UInt16 status;
-            int ret = ftdi_setflowctrl(ref ftdi, (int)Flow);
-            CheckRet(ret);            
+			int ret = ftdi_set_event_char(ref ftdi, 0, 0);            	
+            ret = ftdi_setflowctrl(ref ftdi, (int)Flow);
+            CheckRet(ret);   
         }
         
 
