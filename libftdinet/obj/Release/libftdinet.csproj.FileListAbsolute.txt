@@ -1,0 +1,4 @@
+D:\Projects\PWMaster\Software\SystemCode\VGA_Nav\FTDI-dot-net-usb-relais\libftdinet\bin\Release\libftdinet.dll
+D:\Projects\PWMaster\Software\SystemCode\VGA_Nav\FTDI-dot-net-usb-relais\libftdinet\obj\Release\libftdinet.csproj.AssemblyReference.cache
+D:\Projects\PWMaster\Software\SystemCode\VGA_Nav\FTDI-dot-net-usb-relais\libftdinet\obj\Release\libftdinet.csproj.CoreCompileInputs.cache
+D:\Projects\PWMaster\Software\SystemCode\VGA_Nav\FTDI-dot-net-usb-relais\libftdinet\obj\Release\libftdinet.dll
